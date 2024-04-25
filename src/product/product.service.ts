@@ -5,7 +5,7 @@ import { Product } from './product.model';
 
 @Injectable()
 export class ProductService {
-    constructor(@InjectModel('User') private readonly productModel: Model<Product>) {}
+    constructor(@InjectModel('Product') private readonly productModel: Model<Product>) {}
   
     async getAllProducts(){
       const allProducts = await this.productModel.find();
