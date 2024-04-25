@@ -31,4 +31,9 @@ export class UserController {
     async getAllUsers() {
         return await this.userService.getAllUsers();
     }
+
+    @Post('test')
+    test() {
+        return 'test';
+    }
 }
