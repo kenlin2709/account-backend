@@ -33,7 +33,12 @@ export class UserController {
     }
 
     @Post('test')
-    test() {
-        return 'test';
+    test(
+        @Body('firstName') firstName: string,
+        @Body('lastName') lastName: string,
+        @Body('userName') userName: string,
+        @Body('password') password: string,
+    ) {
+        return {firstName, lastName, userName, password};
     }
 }
