@@ -9,6 +9,6 @@ export class ProductService {
   
     async getAllProducts(){
       const allProducts = await this.productModel.find();
-      return allProducts.reduce((obj, item) => (obj[item.itemCode] = item, obj) ,{});
+      return allProducts;
     }
 }
