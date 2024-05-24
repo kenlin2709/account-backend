@@ -36,12 +36,12 @@ export class UploadController {
     files: Array<Express.Multer.File>,
     @Body() body,
   ) {
-    return await Promise.all(files.map(async file => {
+    return await Promise.all(files.map(async (file, index) => {
         const filePath = await this.uploadService.upload(
             file.originalname,
             file.buffer,
             file.mimetype,
-            body.itemCode,
+            body.itemCode + '/' + body.itemCode + '-' + index,
         );
         return filePath;
     }));
