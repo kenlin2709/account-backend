@@ -17,6 +17,8 @@ export class UploadController {
             ]
         })
     ) file: Express.Multer.File ) {
-        await this.uploadService.upload(file.originalname, file.buffer);
+        const filePath = await this.uploadService.upload(file.originalname, file.buffer);
+        return {filePath};
     }
+    
 }
