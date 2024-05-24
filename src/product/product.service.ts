@@ -16,4 +16,11 @@ export class ProductService {
         const product = await this.productModel.findOne({itemCode: {$eq: itemCode}})
         return product;
     }
+
+    async addProduct(product: Product) {
+      const addedProduct = await this.productModel.create({
+        ...product,
+      })
+      return addedProduct;
+    }
 }

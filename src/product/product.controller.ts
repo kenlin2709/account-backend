@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
+import { Product } from './product.model';
 
 @Controller('product')
 export class ProductController {
@@ -20,6 +21,14 @@ export class ProductController {
         @Param('itemCode') itemCode: string
     ) {
         return await this.productService.getProductByItemCode(itemCode);
+    }
+
+    @Post('add')
+    async addOneProduct(
+        @Body() product: Product,
+    ){
+        console.log(product);
+        return await this.productService.addProduct(product);
     }
 
 }
