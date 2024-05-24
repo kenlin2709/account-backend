@@ -1,5 +1,5 @@
-import { Body, Controller, FileTypeValidator, MaxFileSizeValidator, ParseFilePipe, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Body, Controller, FileTypeValidator, MaxFileSizeValidator, ParseFilePipe, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 
 @Controller('upload')
@@ -27,5 +27,23 @@ export class UploadController {
       body.itemCode,
     );
     return { filePath };
+  }
+
+  @Post('multiple')
+  @UseInterceptors(FilesInterceptor('files'))
+  async uploadFiles(
+    @UploadedFiles()
+    files: Array<Express.Multer.File>,
+    @Body() body,
+  ) {
+    return await Promise.all(files.map(async file => {
+        const filePath = await this.uploadService.upload(
+            file.originalname,
+            file.buffer,
+            file.mimetype,
+            body.itemCode,
+        );
+        return filePath;
+    }));
   }
 }
