@@ -33,4 +33,8 @@ export class ProductService {
       const editedProduct = await this.productModel.findByIdAndUpdate(id, product, {new: true});
       return editedProduct;
     }
+
+    async deleteProduct(id: string) {
+      return await this.productModel.findByIdAndDelete(id);
+    }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './product.model';
 
@@ -34,7 +34,11 @@ export class ProductController {
     async getProductById(
         @Param('id') id: string
     ) { 
-        return await this.productService.getProductById(id);
+        const product = await this.productService.getProductById(id);
+        if(!product){
+            throw new NotFoundException({message: 'Product is not found'});
+        }
+        return product;
     }
 
     @Patch('id/:id')
@@ -44,5 +48,12 @@ export class ProductController {
     ){
       return await this.productService.editProduct(product, id);
     }
+
+    @Delete('id/:id')
+    async delete(
+        @Param('id') id: string,
+      ){
+        return await this.productService.deleteProduct(id);
+      }
 
 }
