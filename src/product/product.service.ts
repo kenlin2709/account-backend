@@ -28,4 +28,9 @@ export class ProductService {
       })
       return addedProduct;
     }
+
+    async editProduct(product: Product, id: string) {
+      const editedProduct = await this.productModel.findByIdAndUpdate(id, product, {new: true});
+      return editedProduct;
+    }
 }

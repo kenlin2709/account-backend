@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './product.model';
 
@@ -35,6 +35,14 @@ export class ProductController {
         @Param('id') id: string
     ) { 
         return await this.productService.getProductById(id);
+    }
+
+    @Patch('id/:id')
+    async update(
+      @Param('id') id: string,
+      @Body() product: Product
+    ){
+      return await this.productService.editProduct(product, id);
     }
 
 }
