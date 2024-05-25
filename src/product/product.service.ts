@@ -6,6 +6,11 @@ import { Product } from './product.model';
 @Injectable()
 export class ProductService {
     constructor(@InjectModel('Product') private readonly productModel: Model<Product>) {}
+
+    async getProductById(id: string){
+      const product = await this.productModel.findById(id);
+      return product;
+    }
   
     async getAllProducts(){
       const allProducts = await this.productModel.find();

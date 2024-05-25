@@ -16,7 +16,7 @@ export class ProductController {
         return await this.productService.getAllProducts();
     }
 
-    @Get(':itemCode')
+    @Get('itemCode/:itemCode')
     async getProductByItemCode(
         @Param('itemCode') itemCode: string
     ) {
@@ -27,8 +27,14 @@ export class ProductController {
     async addOneProduct(
         @Body() product: Product,
     ){
-        console.log(product);
         return await this.productService.addProduct(product);
+    }
+
+    @Get('id/:id')
+    async getProductById(
+        @Param('id') id: string
+    ) { 
+        return await this.productService.getProductById(id);
     }
 
 }
